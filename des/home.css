@@ -1,0 +1,120 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	color: white;
+	font-family: sans-serif;
+}
+body {
+	background-color: rgb(255,190,70);
+	/*background-color: rgb(187,61,0);*/
+}
+header {
+	width: 100%;
+	background-color: rgba(255,128,0,0.9);
+	height: 80px;
+	box-shadow: 2px 3px 20px 1px black;
+}
+
+i {
+	float: left;
+	width: 20%; height: auto;
+}
+i img {
+	margin-left: 20px;
+}
+nav {
+	float: right;
+	width: 100%; height: 80px;
+}
+nav a {
+	width: auto; height: auto;
+	display: inline-block;
+	font-size: 24px;
+	margin: 10px; padding: 1%;
+}
+a {
+	text-decoration: none;
+	font-family: sans-serif;
+}
+.clear {
+	clear: both;
+}
+.inputext {
+	background-color: rgba(0,0,0,0);
+	border: 0px solid black;
+	border-bottom: 1px solid white;
+}
+#wrapper {
+	width: 100%; height: auto;
+}
+#footer {
+	background-color: rgb(223,112,0);
+	height: 332px;
+}
+.text {
+	font-family: sans-serif;
+	font-size: 30px;
+	margin: 20px;
+}
+.text2 {
+	font-family: sans-serif;
+	font-size: 20px;
+	margin: 2px;
+}
+.input {
+	width: 60%; height: 40px;
+	padding: 2px 5px;
+	background-color: rgba(0,0,0,0);
+	border: 0px solid white; border-radius: 0px;
+	font-family: sans-serif;
+	font-size: 30px;
+}
+.intext {
+	border-bottom: 2px solid white;
+}
+.btn {
+	border-radius: 10px;
+	border: 2px solid white;
+	cursor: pointer;
+}
+.btn:hover {
+	color: rgb(255,190,70);
+	border-color: rgb(255,190,70);
+	background-color: white;
+}
+.button {
+	width: 95px;
+	background-color: rgba(0,0,0,0);
+	border: 1px solid white;
+	font-family: sans-serif;
+	cursor: pointer;
+}
+.button:hover {
+	background-color: white;
+	color: rgba(255,128,0,0.9);
+}
+#info {
+	width: 100%; height: auto;
+	border-top: 2px solid white;
+}
+#gambar {
+	width: 90%; height: 600px;
+}
+#gambar img {
+	height: auto; width: auto;
+	max-height: 1000px;
+	max-height: 500px;
+	border: 2px solid black;
+}
+#saran {
+	width: 100%; height: 300px;
+	border-top: 2px solid white;
+}
+.box3 {
+	width: 26%;height: auto;
+	margin: 2%;
+	background-color: rgb(223,112,0);
+	display: inline-block;
+	border: 2px solid black;
+	border-radius: 5px;
+}
