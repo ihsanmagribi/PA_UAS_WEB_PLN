@@ -64,6 +64,13 @@ function meter_tarif(){
 	$result = mysqli_query($link, $query);
 	return $result;
 }
+function meter_tarif_pg($halaman_awal, $batas){
+	global $link;
+	//$meter = mysqli_real_escape_string($link, $meter);
+	$query = "SELECT * FROM meter INNER JOIN tarif ON meter.id_tarif = tarif.id_tarif WHERE aktif='1' ORDER BY id_meter ASC limit $halaman_awal, $batas ";
+	$result = mysqli_query($link, $query);
+	return $result;
+}
 function meter_tarif_off(){
 	global $link;
 	//$meter = mysqli_real_escape_string($link, $meter);

@@ -23,12 +23,10 @@ if (isset($_GET['aktf'])) {
 ?>
 <div id="atas">
 	<div class="left">
-		<br>Pilih Tugas :
-		<a href="petugas.php?lvl=0" class="class btn btn-primary">catat meter</a>
-		<a href="petugas.php?lvl=1" class="class btn btn-primary">Kasir pembayaran</a>
-		<a href="petugas.php?lvl=2" class="class btn btn-primary">operator meter</a>
-		<a href="petugas.php?lvl=3" class="class btn btn-primary">admin</a>
+	<br><form action="petugas.php" method="get">
+		Cari Nama Petugas :<input type="search" name="search" class="inputext" maxlength="12">
 		<a href="petugas.php" class="class btn btn-primary">refresh</a>
+		</form>
 	</div>
 	<div class="right"><br><a href="form-petugas.php" class="class btn btn-primary">+Petugas</a></div>
 	<div class="clear"></div>
@@ -43,19 +41,30 @@ if (isset($_GET['aktf'])) {
 			<th>Action</th>
 		</tr>
 		<?php
-		if (isset($_GET['lvl'])) {
-			$lv = $_GET['lvl'];
-			if ($lv >= 4 or $lv <= -1) {
-				$_SESSION['alert'] = "<script>mscAlert('Tugas Tidak ada!');</script>";
-				header('location: petugas.php');
-				die();
+		$batas = 3;
+		$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+		$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
+		$Previous = $halaman - 1;
+		$next = $halaman + 1;
+			if (isset($_GET['search'])) {
+				if (cek_petugas($_GET['search'],'1')) {
+					$_SESSION['alert'] = "<script>mscAlert('Nomor Meter Tidak ada atau telah hapus!');
+					</script>";
+					header('location: pelanggan.php');
+					die();
+				}else{
+					$mt = cari_petugas($_GET['search']);
+				}
+			}else{
+				$mt = petugas_pg($halaman_awal, $batas);
 			}
-			$mt = petugas_level($lv);
-		}else{
-			$mt = petugas();
-		}
-		while ($ptgs = mysqli_fetch_assoc($mt)) {
-			?>
+		$baris = petugas();
+		$jumlah_data = mysqli_num_rows($baris);
+		$total_halaman = ceil($jumlah_data / $batas);
+		$data_petugas = mysqli_query($link, "SELECT * FROM login INNER JOIN images on login.id_login = images.id_login WHERE level < 5 limit $halaman_awal, $batas");
+		$nomor = $halaman_awal+1;
+		while($ptgs = mysqli_fetch_array($mt)){
+					?>
 			<tr>
 				<td><?= $ptgs['username']; ?></td>
 				<td><?= tugas($ptgs['level']); ?></td>
@@ -72,4 +81,21 @@ if (isset($_GET['aktf'])) {
 				</tr>
 			<?php } ?>
 		</table>
+		<nav>
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+					<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
+				</li>
+				<?php 
+				for($x=1;$x<=$total_halaman;$x++){
+					?> 
+					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+					<?php
+				}
+				?>				
+				<li class="page-item">
+					<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
+				</li>
+			</ul>
+		</nav>
 		<?php require_once 'des/footer-petugas.php'; ?>

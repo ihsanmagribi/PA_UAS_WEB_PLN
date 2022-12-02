@@ -39,6 +39,11 @@ if (isset($_GET['pnometer'])) {
 			<th>Action</th>
 		</tr>
 		<?php
+		$batas = 3;
+		$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+		$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
+		$Previous = $halaman - 1;
+		$next = $halaman + 1;
 		if (isset($_GET['search'])) {
 			if (cek_meter($_GET['search'],'1')) {
 				$_SESSION['alert'] = "<script>mscAlert('Nomor Meter Tidak ada atau telah hapus!');
@@ -49,8 +54,13 @@ if (isset($_GET['pnometer'])) {
 				$mt = cari_meter($_GET['search']);
 			}
 		}else{
-			$mt = meter_tarif();
+			$mt = meter_tarif_pg($halaman_awal, $batas);
 		}
+		$baris = meter_tarif();
+		$jumlah_data = mysqli_num_rows($baris);
+		$total_halaman = ceil($jumlah_data / $batas);
+		$data_petugas = mysqli_query($link, "SELECT * FROM meter INNER JOIN tarif ON meter.id_tarif = tarif.id_tarif WHERE aktif='1' limit $halaman_awal, $batas");
+		$nomor = $halaman_awal+1;
 		while ($pelanggan = mysqli_fetch_assoc($mt)) {
 			?>
 			<tr>
@@ -73,4 +83,21 @@ if (isset($_GET['pnometer'])) {
 			</tr>
 		<?php } ?>
 	</table>
+	<nav>
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+					<a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$Previous'"; } ?>>Previous</a>
+				</li>
+				<?php 
+				for($x=1;$x<=$total_halaman;$x++){
+					?> 
+					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+					<?php
+				}
+				?>				
+				<li class="page-item">
+					<a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
+				</li>
+			</ul>
+		</nav>
 	<?php require_once 'des/footer-petugas.php'; ?>

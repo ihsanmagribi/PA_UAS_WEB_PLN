@@ -19,6 +19,28 @@ function petugas(){
 	$result = mysqli_query($link, $query);
 	return $result;
 }
+function petugas_pg($halaman_awal, $batas){
+	global $link;
+	$query = "SELECT * FROM login INNER JOIN images on login.id_login = images.id_login WHERE level < 5 limit $halaman_awal, $batas";
+	$result = mysqli_query($link, $query);
+	return $result;
+}
+function cek_petugas($user,$id){
+	global $link;
+	$user = mysqli_real_escape_string($link, $user);
+	$query = "SELECT * FROM login INNER JOIN images on login.id_login = images.id_login WHERE username='$user' AND aktif='$id'";
+	if ($result = mysqli_query($link, $query)){
+		if (mysqli_num_rows($result) == 0) return true;
+		else return false;
+	}
+}
+function cari_petugas($user){
+	global $link;
+	$meter = mysqli_real_escape_string($link, $user);
+	$query = "SELECT * FROM login INNER JOIN images on login.id_login = images.id_login WHERE username='$user'";
+	$result = mysqli_query($link, $query);
+	return $result;
+}
 function petugas_where($id){
 	global $link;
 	$query = "SELECT * FROM login WHERE id_login='$id'";

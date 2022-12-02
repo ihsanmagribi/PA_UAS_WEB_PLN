@@ -53,6 +53,10 @@ option {
 .left {
 	float: left;
 }
+.left form {
+	float: left;
+	margin-right: 500px;
+}
 .right {
 	float: right;
 }
