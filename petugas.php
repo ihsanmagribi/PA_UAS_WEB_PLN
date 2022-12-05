@@ -41,16 +41,16 @@ if (isset($_GET['aktf'])) {
 			<th>Action</th>
 		</tr>
 		<?php
-		$batas = 3;
+		$batas = 5;
 		$halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
 		$halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
 		$Previous = $halaman - 1;
 		$next = $halaman + 1;
 			if (isset($_GET['search'])) {
 				if (cek_petugas($_GET['search'],'1')) {
-					$_SESSION['alert'] = "<script>mscAlert('Nomor Meter Tidak ada atau telah hapus!');
+					$_SESSION['alert'] = "<script>mscAlert('Petugas Tidak Ditemukan');
 					</script>";
-					header('location: pelanggan.php');
+					header('location: petugas.php');
 					die();
 				}else{
 					$mt = cari_petugas($_GET['search']);

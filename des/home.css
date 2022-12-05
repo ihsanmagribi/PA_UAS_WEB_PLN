@@ -28,7 +28,6 @@ nav {
 }
 nav a {
 	width: auto; height: auto;
-	display: inline-block;
 	font-size: 24px;
 	margin: 10px; padding: 1%;
 }

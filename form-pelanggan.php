@@ -78,7 +78,7 @@ if (isset($_POST['edit'])) {
 						$select = $mtr['id_tarif'];
 					} ?>
 				<tr>
-				<td colspan="2"><p class="text1" align="center">Form Edit Pelanggan</p></td>
+				<td colspan="2"><p class="text1" align="center" text size >Form Edit Pelanggan</p></td>
 			</tr>
 			<tr>
 				<td colspan="2"><?= $error; ?></td>
